@@ -1,0 +1,11 @@
+RewriteEngine On
+
+RewriteBase /admin-system/adminManager
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?action=$1 [QSA,L]
+
+
+
+
+
+
