@@ -10,27 +10,18 @@ class CommentsController extends BilletController
     public function listComments()
     {
         $this->app->authAdmin();
-        $type = $this->type;
         $id = $this->id;
         $path = $this->path;
 
-        if (is_null($type)) {
-            $type = 'news';
-        }
-        $typeSelected = $type;
 
-        if (!is_null($type)) {
-            $tableCom = $this->selectTableComments($type);
-            $tablePost = $this->selectTable($type);
-            $listCom = $this->displayAllComments($tableCom, $tablePost);
+        $listCom = $this->displayAllComments();
 
             if (!is_null($id)) {
-                $checkCom = 'checkcom-' . $type . '-' . $id . '-' . $_GET['idCom'];
+                $checkCom = 'checkcom-'. $id . '-' . $_GET['idCom'];
                 isset($_GET['idCom']) ? $id = $_GET['idCom'] : $id;
-                $actionCom = $this->displayComment($tableCom, $tablePost, $id);
+                $actionCom = $this->displayComment($id);
             }
-        }
-        $isTypeNull = $this->isTypeNull;
+
         $isIdNull = $this->isIdNull;
 
         require '../app/view/admin/Comments/comments.php';

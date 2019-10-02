@@ -1,4 +1,3 @@
-<h5><?= ucfirst($typeSelected) ?></h5>
 <table class="table table-hover">
     <thead>
     <tr>

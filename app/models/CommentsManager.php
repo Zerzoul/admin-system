@@ -47,9 +47,9 @@ class CommentsManager extends Manager
     }
 
     // ADMIN
-    public function getAllComments($tableCom, $tablePost)
+    public function getAllComments()
     {
-        $getComs = $this->pdo->query('SELECT tC.id, tP.title, tC.author, tC.comments, tC.date, tC.post_id, tC.statue, tC.reported FROM ' . $tableCom . ' tC LEFT JOIN ' . $tablePost . ' tP ON tC.post_id = tP.id GROUP BY tC.id ');
+        $getComs = $this->pdo->query('SELECT tC.id, tP.title, tC.author, tC.content, tC.date, tC.post_id, tC.statue, tC.reported FROM comment tC LEFT JOIN post tP ON tC.post_id = tP.id GROUP BY tC.id ');
         $dataComs = $getComs->fetchAll(\PDO::FETCH_OBJ);
         return $dataComs;
     }

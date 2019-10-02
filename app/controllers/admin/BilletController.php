@@ -46,10 +46,10 @@ class BilletController extends \framework\Controller
         }
     }
 
-    public function displayAllComments($tableCom, $tablePost)
+    public function displayAllComments()
     {
         $news = $this->app->getManager('comments');
-        return $news->getAllComments($tableCom, $tablePost);
+        return $news->getAllComments();
     }
 
     public function displayComment($tableCom, $tablePost, $id)
