@@ -1,6 +1,6 @@
 <?php
 return array(
-    'name' => 'billet_simple_pour_lalaska',
+    'name' => 'aqua-helper',
     'host' => 'localhost',
     'user' => 'root',
     'pass' => ''

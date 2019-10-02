@@ -12,11 +12,11 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $this->app->authAdmin();
-        $billet = $this->app->getManager('news');
+        $billet = $this->app->getManager('billet');
         $billetRough = $billet->getCountBillet('0', 3);
         $billetToValidate = $billet->getCountBillet('0', 2);
         $billetPublished = $billet->getCountBillet('0', 1);
-
+//
         $comment = $this->app->getManager('comments');
         $newComment = $comment->getCountComment('statue', 6);
         $reportedComment = $comment->getCountComment('reported', '1');

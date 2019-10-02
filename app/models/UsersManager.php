@@ -38,7 +38,7 @@ class UsersManager extends Manager
 
     public function getAdminUser()
     {
-        $getAdminUsers = $this->pdo->query('SELECT id, username, password, statue FROM adminmanagerusers ');
+        $getAdminUsers = $this->pdo->query('SELECT id, user_name, password, statue FROM adminmanager');
         $adminUsers = $getAdminUsers->fetchAll(\PDO::FETCH_OBJ);
         return $adminUsers;
     }

@@ -50,22 +50,7 @@ class Route
                         $this->_matchId = intval($id);
                     }
                 };
-            } else {
-
-                if (preg_match('/[A-Za-z=]*/', urldecode($params), $id)) {
-                    if (!empty($id[0])) {
-                        $id = base64_decode($id[0]);
-                        $this->_matchId = intval($id);
-                    }
-                };
             }
-        }
-        foreach ($urlParse as $params) {
-            if (preg_match('/news|episodes|chapitre/', $params, $type)) {
-                if (!empty($type[0])) {
-                    $this->_matchType = htmlspecialchars($type[0]);
-                }
-            };
         }
         if (is_string($this->_matchType)) {
             $this->_type = $this->_matchType;
@@ -83,7 +68,6 @@ class Route
             'path' => $this->_matches,
             'function' => $this->_function,
             'params' => [
-                'type' => $this->_type,
                 'id' => $this->_id,
             ]
         );

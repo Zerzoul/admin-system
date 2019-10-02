@@ -5,14 +5,10 @@ namespace framework;
 class Controller
 {
 
-    const NEWS_PATH = 'app/view/home/News/news.php';
-    const NEW_PATH = 'app/view/home/News/new.php';
-    const NEW_COMMENTS_PATH = 'app/view/home/News/newsComments.php';
     protected $controller;
     protected $app;
     protected $form;
     protected $id = null;
-    protected $type = null;
     protected $path = null;
     protected $comAdded = false;
 
@@ -25,7 +21,6 @@ class Controller
 
         if (is_array($params)) {
             $this->id = $params['id'];
-            $this->type = $params['type'];
             $this->path = $params['path'];
         }
 
@@ -35,7 +30,6 @@ class Controller
             $this->controller = $class_name;
         }
         return $this->controller;
-
     }
 
     public function authAccess()
@@ -44,30 +38,6 @@ class Controller
             if (!isset($_SESSION['admin'])) {
                 header("Location: ");
             }
-        } else {
-            unset($_SESSION['admin']);
         }
     }
-
-    public function selectTable($type)
-    {
-        if (!$type) {
-            $type = 'news';
-        }
-        return $type . 'post';
-    }
-
-    public function selectTableComments($type)
-    {
-        if (!$type) {
-            $type = 'news';
-        }
-        return $type . 'comments';
-    }
-
-    public function urlEncode($url)
-    {
-        return urlencode(base64_encode($url));
-    }
-
 }

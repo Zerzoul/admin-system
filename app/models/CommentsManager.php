@@ -89,15 +89,10 @@ class CommentsManager extends Manager
 
     public function getCountComment($requete, $reported)
     {
-
-        $getBillets = $this->pdo->prepare('SELECT SUM(t.post) AS commentCount FROM 
-                                          ((SELECT COUNT(A.id) AS post FROM newscomments A WHERE (' . $requete . '=:' . $requete . '))
-                                            UNION ALL
-                                            (SELECT COUNT(B.id) As post FROM episodescomments B WHERE (' . $requete . '=:' . $requete . '))
-                                          ) AS t');
-        $getBillets->execute(array($requete => $reported));
-        $getBillets = $getBillets->fetch(\PDO::FETCH_LAZY);
-        return $getBillets;
+        $getCountComment = $this->pdo->prepare('SELECT COUNT(id) AS commentCount FROM comment WHERE '. $requete .'=:'. $requete .' ');
+        $getCountComment->execute(array($requete => $reported));
+        $getCountComment = $getCountComment->fetch(\PDO::FETCH_LAZY);
+        return $getCountComment;
     }
 }
 

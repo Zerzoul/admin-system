@@ -56,7 +56,6 @@ class App
         $class_name = '\\controllers\\' . $direction . '\\' . $class;
         $form = $this->initForm();
         require_once $class_path . '.php';
-
         if (self::$_instanceController instanceof $class_name === false) {
             self::$_instanceController = new $class_name(self::getInstance(), $form, $params);
         }
@@ -103,6 +102,15 @@ class App
             self::$_instancePage = new Page($call, self::getInstance());
         }
         return self::$_instancePage;
+    }
+    public function getApi($call)
+    {
+        if (!isset($call)) {
+            throw new \Exception('No data to get');
+        }
+        $this->path = $call['path'];
+        return new getApi($call, self::getInstance());
+
     }
 
 

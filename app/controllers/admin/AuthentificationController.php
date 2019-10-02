@@ -10,10 +10,10 @@ class AuthentificationController extends \framework\Controller
     public function formLogin()
     {
         $name = $this->form->input("text", "userName", "", "form-control", true);
-        $nameLabel = $this->form->label("userName", "User");
+        $nameLabel = $this->form->label("Nom d'utilisateur", "User");
         $pass = $this->form->input("password", "userPass", "", "form-control", true);
-        $passLabel = $this->form->label("userPass", "Password");
-        $submit = $this->form->submit("submit", "btn btn-info");
+        $passLabel = $this->form->label("Mot de passe", "Password");
+        $submit = $this->form->submit("Connexion", "btn btn-info");
         $errorMessage = null;
         if (isset($_SESSION['POST_AUTH']) && !$_SESSION['POST_AUTH']) {
             $errorMessage = '<div class="alert alert-danger" role="alert">' . $this->errorMessage . '</div>';
@@ -32,15 +32,13 @@ class AuthentificationController extends \framework\Controller
         $adminUser = $this->app->getManager('users');
         $adminUser = $adminUser->getAdminUser();
 
-
         $isPasswordCorrect = password_verify($userPass, $adminUser[0]->password);
-        if ($isPasswordCorrect && $userName === $adminUser[0]->username) {
-            $_SESSION['admin'] = $adminUser[0]->username;
+        if ($isPasswordCorrect && $userName === $adminUser[0]->user_name) {
+            $_SESSION['admin'] = $adminUser[0]->user_name;
         } else {
             $_SESSION['POST_AUTH'] = false;
         }
-
-        $this->access('');
+        $this->access();
     }
 
     public function access()

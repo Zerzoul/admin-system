@@ -1,12 +1,6 @@
-<?php
-if (!$isTypeNull) {
-    ?>
-    <div class="border rounded p-2 mr-1 col-7">
-        <?php require 'tabsListBillets.php'; ?>
-    </div>
-    <?php
-}
-?>
+<div class="border rounded p-2 mr-1 col-7">
+    <?php require 'tabsListBillets.php'; ?>
+</div>
 
 <?php
 if (!$isIdNull) {

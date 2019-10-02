@@ -18,13 +18,11 @@ class EditBilletController extends BilletController
     public function billetForm()
     {
         $this->app->authAdmin();
-        $type = $this->type;
         $id = $this->id;
 
-        if (!is_null($type) && !is_null($id)) {
-            $this->loadForUpdateBillet($type, $id);
+        if (!is_null($id)) {
+            $this->loadForUpdateBillet($id);
         }
-
         $addBilletOnly = $this->addBilletOnly;
         $statue = $this->updateStatue;
 
@@ -37,43 +35,37 @@ class EditBilletController extends BilletController
         require_once '../app/view/admin/Billets/addBillet.php';
     }
 
-    public function loadForUpdateBillet($type, $id)
+    public function loadForUpdateBillet($id)
     {
         $this->addBilletOnly = false;
         $this->buttonName = 'Modifier';
-        $table = $this->selectTable($type);
-        $isTrashed = 0;
-        $updateBillet = $this->getTheBillet($table, $id, $isTrashed);
-        if ($updateBillet->isTrashed !== '0') {
+        $isThrash = 0;
+        $updateBillet = $this->getTheBillet($id, $isThrash);
+        if ($updateBillet->isThrash !== '0') {
             return;
         }
 
         $this->updateStatue = $updateBillet->statue;
         $this->updateTitle = $updateBillet->title;
-        $this->updatePost = $updateBillet->post;
+        $this->updatePost = $updateBillet->content;
     }
 
     public function checkBillet()
     {
-        $type = $this->type;
         $id = $this->id;
-        if (!is_null($type) && !is_null($id)) {
+        if (!is_null($id)) {
             $this->addBilletOnly = false;
             $this->updateDate = date("Y-m-d H:i:s");
-            $table = $this->selectTable($type);
-
-        } else {
-            $table = $this->selectTable($_POST['type']);
         }
 
         $title = $_POST['titleBillet'];
-        $post = $_POST['contentBillet'];
+        $content = $_POST['contentBillet'];
         $statue = $_POST['statue'];
 
         if ($this->addBilletOnly) {
-            $creatBillet = $this->addBillet($table, $title, $post, $statue);
+            $creatBillet = $this->addBillet($title, $content, $statue);
         } else {
-            $creatBillet = $this->updateBillet($id, $table, $title, $post, $statue, $this->updateDate);
+            $creatBillet = $this->updateBillet($id, $title, $content, $statue, $this->updateDate);
         }
 
         if ($creatBillet) {

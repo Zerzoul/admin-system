@@ -7,19 +7,7 @@
 
     <form action="" method="POST">
         <div class="row form-group px-3">
-            <?php
-            if ($addBilletOnly) {
-                ?>
-
-                <select name="type" class="form-control col-2 mr-2" id="typeCheck" required>
-                    <option value="">Type de billet :</option>
-                    <option value="news">News</option>
-                    <option value="episodes">Episodes</option>
-                </select>
-                <?php
-            } ?>
-
-            <select name="statue" class="form-control col-2" id="typeCheck" required>
+            <select name="statue" class="form-control col-2" id="publication" required>
                 <option value="">Statue Publication :</option>
                 <option value="3" <?php if ($statue === '3') {
                     echo 'selected';

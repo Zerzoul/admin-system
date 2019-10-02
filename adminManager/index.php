@@ -1,8 +1,9 @@
 <?php
-
+/**
+ * api/index.php for admin management.
+ */
 require '../framework/lib/Autoloader.php';
 \framework\Autoloader::register();
-
 
 session_start();
 ob_start();

@@ -1,4 +1,3 @@
-<h5><?= ucfirst($typeSelected) ?></h5>
 <table class="table table-hover">
     <thead>
     <tr>
@@ -24,7 +23,7 @@
                 echo $date->format('d/m/Y à H:i'); ?></td>
             <td><?= $billet->title ?></td>
             <td>
-                <a href="<?= $path ?>-<?= $type ?>-<?= $billet->id ?>" class="text-light">
+                <a href="<?= $path ?>-<?= $billet->id ?>" class="text-light">
                     <button
                         <?php if (isset($actionBillet->id)) {
                             echo $billet->id === $actionBillet->id ? 'disabled' : '';

@@ -7,28 +7,25 @@ class BilletController extends \framework\Controller
 
     const LIST_BILLET_PATH = '../app/view/admin/Billets/billets.php';
     protected $isIdNull = true;
-    protected $isTypeNull = true;
-    protected $type;
     protected $id;
 
-    public function displayAllBillet($table, $isTrashed)
+    public function displayAllBillet($isThrash)
     {
-        $this->isTypeNull = false;
-        $news = $this->app->getManager('news');
-        return $news->getListBillet($table, $isTrashed);
+        $news = $this->app->getManager('billet');
+        return $news->getListBillet($isThrash);
     }
 
-    public function getTheBillet($table, $id, $isTrashed)
+    public function getTheBillet($id, $isThrash)
     {
-        $news = $this->app->getManager('news');
+        $news = $this->app->getManager('billet');
         $this->isIdNull = false;
-        return $news->getTheBillet($table, $id, $isTrashed);
+        return $news->getTheBillet($id, $isThrash);
     }
 
-    public function updateBillet($id, $table, $title, $post, $statue, $date)
+    public function updateBillet($id, $title, $content, $statue, $date)
     {
-        $updateBillet = $this->app->getManager('news');
-        $updateBillet = $updateBillet->updateBillet($id, $table, $title, $post, $statue, $date);
+        $updateBillet = $this->app->getManager('billet');
+        $updateBillet = $updateBillet->updateBillet($id, $title, $content, $statue, $date);
 
         if ($updateBillet) {
             return true;
@@ -37,10 +34,10 @@ class BilletController extends \framework\Controller
         }
     }
 
-    public function addBillet($table, $title, $post, $statue)
+    public function addBillet($title, $content, $statue)
     {
-        $addBillet = $this->app->getManager('news');
-        $addBillet = $addBillet->addBillet($table, $title, $post, $statue);
+        $addBillet = $this->app->getManager('billet');
+        $addBillet = $addBillet->addBillet($title, $content, $statue);
 
         if ($addBillet) {
             return true;
@@ -51,7 +48,6 @@ class BilletController extends \framework\Controller
 
     public function displayAllComments($tableCom, $tablePost)
     {
-        $this->isTypeNull = false;
         $news = $this->app->getManager('comments');
         return $news->getAllComments($tableCom, $tablePost);
     }
@@ -69,16 +65,6 @@ class BilletController extends \framework\Controller
         return $com->updateStatueComment($tableCom, $id, $statue);
     }
 
-    public function selectTheType()
-    {
-        if ($_POST['type'] === 'Type') {
-            header('Location:' . $this->path);
-        } elseif ($_POST['type'] !== $this->type) {
-            $this->type = $_POST['type'];
-        }
-        var_dump($this->path);
-        header('Location: ' . $this->path . '-' . $this->type);
-    }
 
     public function statueReport($obj)
     {
