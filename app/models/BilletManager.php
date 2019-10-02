@@ -8,10 +8,10 @@ class BilletManager extends \framework\Manager
     //FRONT
     public function getListPost($order)
     {
-        $getPost = $this->pdo->prepare('SELECT id, title, content, date_create, date_modif FROM post WHERE statue=:statue AND isThrash=:isThrash ORDER BY id ' . $order);
+        $getPost = $this->pdo->prepare('SELECT id, title, content, date_create FROM post WHERE statue=:statue AND isThrash=:isThrash ORDER BY id ' . $order);
         $getPost->execute(array(
-            'statue' => parent::PUBLISHED,
-            'isTrash' => 0));
+            'statue' => 1,
+            'isThrash' => 0));
         $getPost = $getPost->fetchAll(\PDO::FETCH_OBJ);
         return $getPost;
     }

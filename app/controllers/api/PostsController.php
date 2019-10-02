@@ -10,8 +10,8 @@ namespace controllers\api;
 class PostsController extends \framework\Controller
 {
     public function listPosts(){
-        $posts = $this->app->getManager('news');
-        $posts = $posts->getListNews('newspost', 'ASC');
+        $posts = $this->app->getManager('billet');
+        $posts = $posts->getListPost('ASC');
         return $posts;
     }
 

@@ -4,17 +4,17 @@ namespace framework;
 
 class Manager
 {
-
+    /*PUBLICATION STATUE POST*/
     const PUBLISHED = 1;
     const VALIDATION_BEFORE = 2;
-
-    /*PUBLICATION STATUE POST*/
     const ROUGH = 3;
-    const COM_VALID = 4;
-    const COM_IGNORE = 5;
 
     /*PUBLICATION STATUE COMS*/
+    const COM_VALID = 4;
+    const COM_IGNORE = 5;
     const COM_NEW = 6;
+
+
     const USER_ACTIF = 7;
     const USER_BANNED = 8;
 
