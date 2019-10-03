@@ -11,9 +11,9 @@
                 Billets
             </button>
             <div class="dropdown-menu col-sm">
-                <a class="dropdown-item" href="add-billet">Nouveau Billet</a>
+                <a class="dropdown-item" href="nouveaubillet">Nouveau Billet</a>
                 <a class="dropdown-item" href="billets">Billets</a>
-                <a class="dropdown-item" href="trashbillets">Corbeille</a>
+                <a class="dropdown-item" href="thrashbillets">Corbeille</a>
             </div>
         </div>
         <div class="btn-group col-sm pt-2">
@@ -23,6 +23,16 @@
             </button>
             <div class="dropdown dropdown-menu col-sm">
                 <a class="dropdown-item" href="comments">Commentaires</a>
+            </div>
+        </div>
+        <div class="btn-group col-sm pt-2">
+            <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Aqua-helper
+            </button>
+            <div class="dropdown-menu col-sm">
+                <a class="dropdown-item" href="nouveaupoisson">Ajouter un poisson</a>
+
             </div>
         </div>
         <div class="btn-group col-sm pt-2">

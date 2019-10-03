@@ -35,7 +35,7 @@
                 }
                 ?>
             </div>
-            <div id="content" class="col p-0">
+            <div id="content" class="col p-0 pb-5">
                 <div>
                     <?php include 'header.php'; ?>
                 </div>
