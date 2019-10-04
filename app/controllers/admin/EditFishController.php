@@ -19,6 +19,7 @@ class EditFishController extends Controller
     protected $updateVolMini = null;
     protected $updateIndividualMini = null;
     protected $updatePhoto = null;
+    protected $updatePrice = null;
 
     protected $buttonName = "Ajouter";
 
@@ -60,14 +61,14 @@ class EditFishController extends Controller
         $upload_photo_Label = $this->form->label("Upload :", "upload_photo");
         $upload_photo = $this->form->input("file", "upload_photo", $this->updatePhoto, "form-control", true);
 
+        $price_Label = $this->form->label("Prix :", "price");
+        $price = $this->form->input("number", "price", $this->updatePrice, "form-control", true);
+
         $contentDetailTextarea = $this->form->textarea("content_detail", $this->updateDetail);
         $submit = $this->form->submit($this->buttonName, "btn btn-info");
 
         require_once '../app/view/admin/aqua-helper/fishForm.php';
     }
 
-    public function checkFishForm(){
-        var_dump($_POST);
-        var_dump($_FILES['upload_photo']);
-    }
+
 }

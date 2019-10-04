@@ -58,8 +58,8 @@ return array('GET' =>
             ['controller' => 'EditBillet', 'method' => 'checkBillet']],
         'Update-Billet' => ['path' => 'update-id',
             ['controller' => 'EditBillet', 'method' => 'checkBillet']],
-        'add-Fish' => ['path' => '/nouveaupoisson',
-            ['controller' => 'EditFish', 'method' => 'checkFishForm']],
+        'add-Fish' => ['path' => '/checkFish',
+            ['controller' => 'CheckFishForm', 'method' => 'checkFishForm']],
 
 
         'delete-billet-to-billet' => ['path' => '/billettodelete-id',

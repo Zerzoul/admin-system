@@ -1,10 +1,10 @@
 <?php
 
-return array('GET' =>
-    ['posts' => ['path' => '/posts',
+return array('GET' => [
+        'posts' => ['path' => '/posts',
         ['controller' => 'posts', 'method' => 'listPosts']],
-
-    ],
+        'fishList' => ['path' => '/fishlist',
+            ['controller' => 'fishList', 'method' => 'getFishList']],],
 
 
     'POST' => [
