@@ -38,6 +38,8 @@ return array('GET' =>
 
         'add-fish' => ['path' => '/nouveaupoisson',
             ['controller' => 'EditFish', 'method' => 'fishForm']],
+        'fish-list' => ['path' => '/fishlist',
+            ['controller' => 'ListFish', 'method' => 'listFish']],
 
         'billet-to-restore' => ['path' => '/restore-id',
             ['controller' => 'DeleteBillet', 'method' => 'deleteBilletValidation']],

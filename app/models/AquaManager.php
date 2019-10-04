@@ -42,7 +42,7 @@ class AquaManager extends \framework\Manager
     }
 
     public function getAllFishes(){
-        $getAllFishes = $this->pdo->query('SELECT c.category_name, f.latin_name, f.commun_name, f.regime, f.size, f.heat, f.PH, f.GH, f.vol_mini, f.individual_mini, f.detail, f.price, i.file_id FROM aqua_fish f INNER JOIN category_fish c ON f.category = c.id  INNER JOIN image_upload i ON f.image = i.id ');
+        $getAllFishes = $this->pdo->query('SELECT f.id, c.category_name, f.latin_name, f.commun_name, f.regime, f.size, f.heat, f.PH, f.GH, f.vol_mini, f.individual_mini, f.detail, f.price, i.file_id FROM aqua_fish f INNER JOIN category_fish c ON f.category = c.id  INNER JOIN image_upload i ON f.image = i.id ');
         $getAllFishes = $getAllFishes->fetchAll(\PDO::FETCH_OBJ);
         return $getAllFishes;
     }
