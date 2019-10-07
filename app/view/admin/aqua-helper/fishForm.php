@@ -5,7 +5,7 @@
         </div>
     <?php } ?>
 
-    <form action="checkFish" method="POST" enctype="multipart/form-data">
+    <form action="<?= $actionForm ?>" method="POST" enctype="multipart/form-data">
         <div class="row form-group px-3">
             <div class="col px-2">
                 <?= $category_Label ?>

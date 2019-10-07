@@ -22,9 +22,15 @@ class EditFishController extends Controller
     protected $updatePrice = null;
 
     protected $buttonName = "Ajouter";
+    protected $actionForm = "checkFish";
 
     public function fishForm(){
 
+        if(isset($this->id)){
+            $this->getTheFish($this->id);
+            $this->buttonName = 'Modifier';
+            $this->actionForm = 'checkFish-'.$this->id;
+        }
         $category_Label = $this->form->label("Categorie :", "category");
         $category = $this->form->input("text", "category", $this->updateCategory, "form-control", true);
 
@@ -67,7 +73,33 @@ class EditFishController extends Controller
         $contentDetailTextarea = $this->form->textarea("content_detail", $this->updateDetail);
         $submit = $this->form->submit($this->buttonName, "btn btn-info");
 
+        $actionForm = $this->actionForm;
+
         require_once '../app/view/admin/aqua-helper/fishForm.php';
+    }
+    public function getTheFish($id){
+        $getTheFish = $this->app->getManager('aqua');
+        $getTheFish = $getTheFish->getTheFish($id);
+        $this->setTheFish($getTheFish);
+    }
+    public function setTheFish($getTheFish){
+
+        $heat = explode('/', $getTheFish->heat);
+
+        $this->updateCategory = $getTheFish->category_name;
+        $this->updateCommuneName = $getTheFish->commun_name;
+        $this->updateLatinName = $getTheFish->latin_name;
+        $this->updateDetail = $getTheFish->detail;
+        $this->updateRegime = $getTheFish->regime;
+        $this->updateSize = $getTheFish->size;
+        $this->updateHeatMini = $heat[0];
+        $this->updateHeatMax = $heat[1];
+        $this->updatePH = $getTheFish->PH;
+        $this->updateGH = $getTheFish->GH;
+        $this->updateVolMini = $getTheFish->vol_mini;
+        $this->updateIndividualMini = $getTheFish->individual_mini;
+        $this->updatePrice = $getTheFish->price;
+        $this->updatePhoto = $getTheFish->image;
     }
 
 

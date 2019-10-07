@@ -40,6 +40,10 @@ return array('GET' =>
             ['controller' => 'EditFish', 'method' => 'fishForm']],
         'fish-list' => ['path' => '/fishlist',
             ['controller' => 'ListFish', 'method' => 'listFish']],
+        'updatefishlist-list' => ['path' => '/updatefishlist-id',
+            ['controller' => 'EditFish', 'method' => 'fishForm']],
+        'delete-list' => ['path' => '/deletefishlist-id',
+            ['controller' => 'ListFish', 'method' => 'deleteFish']],
 
         'billet-to-restore' => ['path' => '/restore-id',
             ['controller' => 'DeleteBillet', 'method' => 'deleteBilletValidation']],
@@ -61,6 +65,8 @@ return array('GET' =>
         'Update-Billet' => ['path' => 'update-id',
             ['controller' => 'EditBillet', 'method' => 'checkBillet']],
         'add-Fish' => ['path' => '/checkFish',
+            ['controller' => 'CheckFishForm', 'method' => 'checkFishForm']],
+        'update-Fish' => ['path' => '/checkFish-id',
             ['controller' => 'CheckFishForm', 'method' => 'checkFishForm']],
 
 
