@@ -1,7 +1,8 @@
 <div class="col-7">
+    <div class="mb-5">
+        <a class="btn btn-primary" href="nouveaupoisson">Ajouter un poisson</a>
+    </div>
     <h5><?= $titleList ?></h5>
-
-
         <?php if($notfication){?>
     <div id="notfication" class="alert alert-success">
         <h3>
@@ -32,12 +33,12 @@
         </tr>
         </thead>
         <?php
-        foreach ($getFishList as $fish) {
+        foreach ($getFishList as $key => $fish) {
             ?>
 
             <tbody>
             <tr>
-                <th scope="row"><?= $fish->id ?></th>
+                <th scope="row"><?= $key+1 ?></th>
                 <td><img src="<?= '../api/image_entity/' . $fish->file_id ?>" style="width: 50%"></td>
                 <td><?= $fish->category_name ?></td>
                 <td><?= $fish->commun_name ?></td>

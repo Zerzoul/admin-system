@@ -21,12 +21,10 @@ class ListFishController extends Controller
         }
 
         $titleList = 'Listes des poissons';
-        $isTrash = 0;
 
         $getFishList = $this->app->getManager('aqua');
         $getFishList = $getFishList->getAllFishes();
         $notfication = $this->notfication;
-
         require_once '../app/view/admin/aqua-helper/tabsFishList.php';
     }
     public function deleteFish(){
