@@ -9,14 +9,13 @@
 namespace framework;
 
 
-class getApi
+class api
 {
-
-
     protected $app;
     private $_function;
     private $_id = null;
     private $_path = null;
+    private $data = null;
 
     public function __construct($call, $app)
     {
@@ -56,7 +55,7 @@ class getApi
         return false;
     }
 
-    public function returnApi($direction)
+    public function fetchData($direction)
     {
         $function = $this->_function;
         $params = [
@@ -67,8 +66,8 @@ class getApi
 
         if (!is_null($function[0]['method'])) {
             $method = $function[0]['method'];
-            $returnMethod = $getTheController->$method();
+            $this->data = $getTheController->$method();
         }
-        return $returnMethod;
+        return $this->data;
     }
 }

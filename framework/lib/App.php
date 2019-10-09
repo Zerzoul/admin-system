@@ -103,13 +103,13 @@ class App
         }
         return self::$_instancePage;
     }
-    public function getApi($call)
+    public function api($call)
     {
         if (!isset($call)) {
             throw new \Exception('No data to get');
         }
         $this->path = $call['path'];
-        return new getApi($call, self::getInstance());
+        return new api($call, self::getInstance());
 
     }
 

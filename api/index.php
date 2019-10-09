@@ -10,8 +10,12 @@ try {
     $app = \framework\App::getInstance();
     $router = $app->initRouter( $_GET['url'], '\apiRoutes');
     $call = $router->run();
-    $page = $app->getApi($call);
-    $api = $page->returnApi('api');
+
+    $page = $app->api($call);
+    $api = $page->fetchData('api');
+
+    header('Access-Control-Allow-Origin: *');
+    header('Content-type: application/json');
 
     echo json_encode($api);
 

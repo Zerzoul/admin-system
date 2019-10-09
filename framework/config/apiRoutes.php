@@ -10,6 +10,7 @@ return array('GET' => [
     'POST' => [
         'report-news' => ['path' => '/news-id',
             ['controller' => 'comments', 'method' => 'report']],
-
+        'add-com' => ['path' => '/addCom',
+            ['controller' => 'comments', 'method' => 'report']],
     ]
 );
