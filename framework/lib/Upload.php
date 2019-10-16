@@ -29,7 +29,7 @@ class upload
         $fileActualExt = strtolower(end($fileExt));
         $allowedExt = array('jpg', 'jpeg');
 
-        if($this->fileError !== 0 && $this->fileSize > 1000000 && !in_array($fileActualExt, $allowedExt)){
+        if($this->fileError !== 0 && $this->fileSize > 8000 && !in_array($fileActualExt, $allowedExt)){
             return false;
         }
         $fileId = uniqid('', false).'.'.$fileActualExt;

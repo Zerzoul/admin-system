@@ -75,6 +75,7 @@ class EditFishController extends Controller
 
         $actionForm = $this->actionForm;
 
+        $image = $this->updatePhoto;
         require_once '../app/view/admin/aqua-helper/fishForm.php';
     }
     public function getTheFish($id){
@@ -99,7 +100,7 @@ class EditFishController extends Controller
         $this->updateVolMini = $getTheFish->vol_mini;
         $this->updateIndividualMini = $getTheFish->individual_mini;
         $this->updatePrice = $getTheFish->price;
-        $this->updatePhoto = $getTheFish->image;
+        $this->updatePhoto = $getTheFish->file_id;
     }
 
 

@@ -33,6 +33,17 @@
             </span>
         </div>
 
+
+            <?php
+            if (!is_null($image)) {
+                ?>
+                <div>
+                    <img src="<?= '../api/image_entity/'. $image ?>" style="width: 20%" class="img-thumbnail">
+                </div>
+                <?php
+            }
+            ?>
+
         <div class="form-group">
             <?= $upload_photo_Label ?>
             <?= $upload_photo ?>
@@ -41,6 +52,9 @@
         <div>
             <span>
                 <?= $submit ?>
+            </span>
+            <span>
+                <a href="billets" class="btn btn-danger" role="button">Retour</a>
             </span>
         </div>
 

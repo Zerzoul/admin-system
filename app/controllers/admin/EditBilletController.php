@@ -35,7 +35,9 @@ class EditBilletController extends BilletController
         $upload_photo = $this->form->input("file", "upload_image_billet", $this->updatePhoto, "form-control", true);
 
         $contentBilletTextarea = $this->form->textarea("contentBillet", $this->updatePost);
-        $submit = $this->form->submit($this->buttonName, "btn btn-info");
+        $submit = $this->form->submit($this->buttonName, "btn btn-success");
+
+        $image = $this->updatePhoto;
 
         require_once '../app/view/admin/Billets/addBillet.php';
     }
@@ -54,6 +56,7 @@ class EditBilletController extends BilletController
         $this->updateStatue = $updateBillet->statue;
         $this->updateTitle = $updateBillet->title;
         $this->updatePost = $updateBillet->content;
+        $this->updatePhoto = $updateBillet->file_id;
     }
 
     public function checkBillet()

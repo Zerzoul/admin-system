@@ -1,6 +1,6 @@
 <div class="col-7">
     <div class="mb-5">
-        <a class="btn btn-primary" href="nouveaupoisson">Ajouter un poisson</a>
+        <a class="btn btn-info" role="button" href="nouveaupoisson">Ajouter un poisson</a>
     </div>
     <h5><?= $titleList ?></h5>
         <?php if($notfication){?>

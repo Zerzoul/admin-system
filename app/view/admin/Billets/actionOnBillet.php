@@ -23,8 +23,17 @@
         ?>
     </div>
     <div class="py-3">
-        <img src="<?= '../api/image_entity/'. $actionBillet->file_id ?>" style="width: 50%" >
-        
+        <?php
+        if (!is_null($actionBillet->file_id)) {
+        ?>
+            <img src="<?= '../api/image_entity/'. $actionBillet->file_id ?>" style="width: 50%" class="img-thumbnail">
+            <?php
+        } else {
+        ?>
+            <div class="col-5 alert alert-secondary" role="alert"> no-image</div>
+            <?php
+        }
+        ?>
     </div>
 
     <div class="py-3">
