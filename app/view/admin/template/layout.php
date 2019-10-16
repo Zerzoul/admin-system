@@ -17,6 +17,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/1tfphb8xnzzjkde7ncwbl7z8yu6qlf29l0ml53t1jnk5lbbi/tinymce/5/tinymce.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script>tinymce.init({selector: 'textarea'});</script>
     <title>Admin Manager</title>
 </head>

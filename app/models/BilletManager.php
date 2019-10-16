@@ -16,22 +16,24 @@ class BilletManager extends \framework\Manager
         return $getPost;
     }
 
-    public function getPost($id)
-    {
-        $getNews = $this->pdo->prepare('SELECT id, title, content, date_create, date_modif FROM post WHERE id=:id AND statue=:statue');
-        $getNews->execute(array(
-            'id' => $id,
-            'statue' => parent::PUBLISHED));
-        $dataNews = $getNews->fetch(\PDO::FETCH_LAZY);
-        return $dataNews;
-    }
+//    public function getPost($id)
+//    {
+//        $getNews = $this->pdo->prepare('SELECT id, title, content, date_create, date_modif FROM post WHERE id=:id AND statue=:statue');
+//        $getNews->execute(array(
+//            'id' => $id,
+//            'statue' => parent::PUBLISHED));
+//        $dataNews = $getNews->fetch(\PDO::FETCH_LAZY);
+//        return $dataNews;
+//    }
 
     //ADMIN
     public function getListBillet($isThrash)
     {
-        $getListBillet = $this->pdo->prepare('SELECT id, title, content, date_create, date_modif, statue FROM post WHERE isThrash=:isThrash ');
+        $getListBillet = $this->pdo->prepare('SELECT p.id, p.title, p.content, i.file_id, p.date_create, p.date_modif, p.statue FROM post p LEFT JOIN image_upload i ON p.file_id = i.id  WHERE isThrash=:isThrash ');
         $getListBillet->execute(array('isThrash' => $isThrash,));
         $getListBillet = $getListBillet->fetchAll(\PDO::FETCH_OBJ);
+//
+//        var_dump($getListBillet);
         return $getListBillet;
     }
 
@@ -55,7 +57,7 @@ class BilletManager extends \framework\Manager
 
     public function getTheBillet($id, $isThrash)
     {
-        $getNews = $this->pdo->prepare('SELECT id, title, content, date_create, date_modif, statue, isThrash FROM post WHERE id=:id AND isThrash=:isThrash');
+        $getNews = $this->pdo->prepare('SELECT p.id, p.title, p.content, i.file_id, p.date_create, p.date_modif, p.statue, p.isThrash FROM post p LEFT JOIN image_upload i ON p.file_id = i.id WHERE p.id=:id AND p.isThrash=:isThrash');
         $getNews->execute(array(
             'id' => $id,
             'isThrash' => $isThrash
@@ -64,25 +66,26 @@ class BilletManager extends \framework\Manager
         return $dataNews;
     }
 
-    public function addBillet($title, $content, $statue)
+    public function addBillet($title, $content, $imageId,$statue)
     {
-        $prepareAdding = $this->pdo->prepare('INSERT INTO post (title, content, statue) VALUES (:title, :content, :statue)');
+        $prepareAdding = $this->pdo->prepare('INSERT INTO post (title, content, file_id,statue) VALUES (:title, :content, :file_id,:statue)');
         $addBillet = $prepareAdding->execute(array(
             'title' => $title,
             'content' => $content,
+            'file_id' => $imageId,
             'statue' => $statue,
         ));
         return $addBillet;
     }
 
-    public function updateBillet($id, $title, $content, $statue, $date)
+    public function updateBillet($id, $title, $content, $image,$statue, $date)
     {
-        var_dump($date);
-        $prepareUpdate = $this->pdo->prepare('UPDATE post SET title = :title, content = :content, statue = :statue, date_modif = :date_modif WHERE id = :id');
+        $prepareUpdate = $this->pdo->prepare('UPDATE post SET title = :title, content = :content, file_id = :file_id,statue = :statue, date_modif = :date_modif WHERE id = :id');
         $updateBillet = $prepareUpdate->execute(array(
             'id' => $id,
             'title' => $title,
             'content' => $content,
+            'file_id' => $image,
             'statue' => $statue,
             'date_modif' => $date
         ));

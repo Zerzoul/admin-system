@@ -22,6 +22,10 @@
         }
         ?>
     </div>
+    <div class="py-3">
+        <img src="<?= '../api/image_entity/'. $actionBillet->file_id ?>" style="width: 50%" >
+        
+    </div>
 
     <div class="py-3">
         <div>

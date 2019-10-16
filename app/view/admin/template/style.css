@@ -1,0 +1,4 @@
+/*TinyMCE background fix*/
+body.mceContentBody {
+    background-color: none;
+}

@@ -9,11 +9,13 @@ class EditBilletController extends BilletController
 
     protected $addBilletOnly = true;
     protected $buttonName = 'Enregistrer';
+    protected $imageId;
 
     protected $updateStatue = null;
     protected $updateTitle = null;
     protected $updatePost = null;
     protected $updateDate = null;
+    protected $updatePhoto = null;
 
     public function billetForm()
     {
@@ -29,6 +31,9 @@ class EditBilletController extends BilletController
         $title = $this->form->input("text", "titleBillet", $this->updateTitle, "form-control", true);
         $titleLabel = $this->form->label("Titre :", "titleBillet");
 
+        $upload_photo_Label = $this->form->label("Upload :", "upload_image_billet");
+        $upload_photo = $this->form->input("file", "upload_image_billet", $this->updatePhoto, "form-control", true);
+
         $contentBilletTextarea = $this->form->textarea("contentBillet", $this->updatePost);
         $submit = $this->form->submit($this->buttonName, "btn btn-info");
 
@@ -37,6 +42,7 @@ class EditBilletController extends BilletController
 
     public function loadForUpdateBillet($id)
     {
+
         $this->addBilletOnly = false;
         $this->buttonName = 'Modifier';
         $isThrash = 0;
@@ -62,10 +68,14 @@ class EditBilletController extends BilletController
         $content = $_POST['contentBillet'];
         $statue = $_POST['statue'];
 
+
+        $uploadImage = $this->app->upload($_FILES['upload_image_billet']);
+        $this->imageId = $uploadImage->uploadImage();
+
         if ($this->addBilletOnly) {
-            $creatBillet = $this->addBillet($title, $content, $statue);
+            $creatBillet = $this->addBillet($title, $content, $this->imageId, $statue);
         } else {
-            $creatBillet = $this->updateBillet($id, $title, $content, $statue, $this->updateDate);
+            $creatBillet = $this->updateBillet($id, $title, $content, $this->imageId,$statue, $this->updateDate);
         }
 
         if ($creatBillet) {

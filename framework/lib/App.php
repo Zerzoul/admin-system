@@ -91,7 +91,9 @@ class App
         }
         return self::$_router;
     }
-
+    public function upload($file){
+        return new Upload($file);
+    }
     public function getPage($call)
     {
         if (!isset($call)) {

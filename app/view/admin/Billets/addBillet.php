@@ -5,7 +5,7 @@
         </div>
     <?php } ?>
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="row form-group px-3">
             <select name="statue" class="form-control col-2" id="publication" required>
                 <option value="">Statue Publication :</option>
@@ -31,6 +31,11 @@
             <span>
                 <?= $contentBilletTextarea ?>
             </span>
+        </div>
+
+        <div class="form-group">
+            <?= $upload_photo_Label ?>
+            <?= $upload_photo ?>
         </div>
 
         <div>

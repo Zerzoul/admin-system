@@ -22,10 +22,10 @@ class BilletController extends \framework\Controller
         return $news->getTheBillet($id, $isThrash);
     }
 
-    public function updateBillet($id, $title, $content, $statue, $date)
+    public function updateBillet($id, $title, $content, $imageId,$statue, $date)
     {
         $updateBillet = $this->app->getManager('billet');
-        $updateBillet = $updateBillet->updateBillet($id, $title, $content, $statue, $date);
+        $updateBillet = $updateBillet->updateBillet($id, $title, $content, $imageId,$statue, $date);
 
         if ($updateBillet) {
             return true;
@@ -34,10 +34,10 @@ class BilletController extends \framework\Controller
         }
     }
 
-    public function addBillet($title, $content, $statue)
+    public function addBillet($title, $content, $imageId,$statue)
     {
         $addBillet = $this->app->getManager('billet');
-        $addBillet = $addBillet->addBillet($title, $content, $statue);
+        $addBillet = $addBillet->addBillet($title, $content, $imageId,$statue);
 
         if ($addBillet) {
             return true;

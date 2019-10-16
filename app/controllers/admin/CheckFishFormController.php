@@ -8,7 +8,6 @@
 
 namespace controllers\admin;
 use framework\Controller;
-use mysql_xdevapi\Exception;
 
 class CheckFishFormController  extends Controller
 {
@@ -17,7 +16,8 @@ class CheckFishFormController  extends Controller
 
     public function checkFishForm(){
         $this->checkTheForm($_POST);
-        $this->checkTheUploadedImage($_FILES['upload_photo']);
+        $uploadImage = $this->app->upload($_FILES['upload_photo']);
+        $this->imageId = $uploadImage->uploadImage();
 
         if(isset($this->imageId) && isset($this->categoryId)){
             $this->storeFish($_POST);
@@ -35,31 +35,7 @@ class CheckFishFormController  extends Controller
         $this->categoryId = $aquaManager->addCategory($fishPost['category']);
 
     }
-    public function checkTheUploadedImage($file){
 
-        $fileName = $file['name'];
-        $fileTmp = $file['tmp_name'];
-        $fileError = $file['error'];
-        $fileSize = $file['size'];
-
-        $fileExt = explode('.', $fileName);
-        $fileActualExt = strtolower(end($fileExt));
-        $allowedExt = array('jpg', 'jpeg');
-
-
-        if($fileError !== 0 && $fileSize > 1000000 && !in_array($fileActualExt, $allowedExt)){
-            return false;
-        }
-        $fileId = uniqid('', false).'.'.$fileActualExt;
-        $fileDestination = '../api/image_entity/'.$fileId;
-
-        move_uploaded_file($fileTmp, $fileDestination);
-
-        $systemManager = $this->app->getManager('System');
-        $this->imageId = $systemManager->addImage($fileId);
-
-
-    }
     public function storeFish($fish){
         $aquaManager = $this->app->getManager('Aqua');
         $heat = $fish['heat_mini'].' / '.$fish['heat_max'];
