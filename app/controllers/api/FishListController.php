@@ -9,6 +9,7 @@ namespace controllers\api;
 
 class FishListController extends \framework\Controller
 {
+    // return allFishes data
     public function getFishList(){
         $getFishList = $this->app->getManager('aqua');
         $getFishList = $getFishList->getAllFishes();

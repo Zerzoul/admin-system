@@ -10,14 +10,12 @@ try {
     $app = \framework\App::getInstance();
     $router = $app->initRouter( $_GET['url'], '\apiRoutes');
     $call = $router->run();
+    $sanitizer = new \framework\Sanitizer($call);
+    $sanitizer->sanitizeParams();
+    $api = $app->api($call);
+    $data = $api->getData();
 
-    $page = $app->api($call);
-    $api = $page->fetchData('api');
-
-    header('Access-Control-Allow-Origin: *');
-    header('Content-type: application/json');
-
-    echo json_encode($api);
+    echo $data;
 
 } catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();

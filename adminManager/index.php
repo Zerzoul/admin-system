@@ -12,6 +12,8 @@ try {
     $app = \framework\App::getInstance();
     $router = $app->initRouter($_GET['action'], '\adminRoutes');
     $call = $router->run();
+    $sanitizer = new \framework\Sanitizer($call);
+    $sanitizer->sanitizeParams();
     $page = $app->getPage($call);
     $page->build('admin');
 

@@ -8,8 +8,8 @@ return array('GET' => [
 
 
     'POST' => [
-        'report-news' => ['path' => '/news-id',
-            ['controller' => 'comments', 'method' => 'report']],
+        'nouveauCom' => ['path' => '/newcom',
+            ['controller' => 'comments', 'method' => 'addCom']],
         'add-com' => ['path' => '/addCom',
             ['controller' => 'comments', 'method' => 'report']],
     ]

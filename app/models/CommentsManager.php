@@ -8,37 +8,38 @@ class CommentsManager extends Manager
 {
 
 
-    public function getComments($table, $post_id)
+    public function getComments($post_id)
     {
-        $getComs = $this->pdo->prepare('SELECT id, post_id, author, comments, date FROM ' . $table . ' WHERE (post_id = :post_id) AND (statue = ' . parent::COM_VALID . ' OR statue = ' . parent::COM_NEW . ')');
+        $getComs = $this->pdo->prepare('SELECT id, post_id, author, comments, date FROM comment WHERE (post_id = :post_id) AND (statue = ' . parent::COM_VALID . ' OR statue = ' . parent::COM_NEW . ')');
         $getComs->execute(array('post_id' => $post_id));
         $dataComs = $getComs->fetchAll(\PDO::FETCH_OBJ);
         return $dataComs;
     }
 
-    public function countComs($table, $id)
+    public function countComs($id)
     {
-        $getComs = $this->pdo->prepare('SELECT COUNT(*) AS counts FROM ' . $table . ' WHERE post_id = :post_id AND (statue = ' . parent::COM_VALID . ' OR statue = ' . parent::COM_NEW . ')');
+        $getComs = $this->pdo->prepare('SELECT COUNT(*) AS counts FROM comment WHERE post_id = :post_id AND (statue = ' . parent::COM_VALID . ' OR statue = ' . parent::COM_NEW . ')');
         $getComs->execute(array('post_id' => $id));
         $dataComs = $getComs->fetch(\PDO::FETCH_LAZY);
         return $dataComs;
     }
 
-    public function addComs($table, $id, $author, $comments)
+    public function addComs($postId, $answerPostId,$author, $content)
     {
-        $addComs = $this->pdo->prepare('INSERT INTO ' . $table . '(post_id, author, comments, statue) VALUES (:post_id, :author, :comments, :statue)');
+        $addComs = $this->pdo->prepare('INSERT INTO comment (post_id, answer_comment_id,author, content, statue) VALUES (:post_id, :answer_comment_id,:author, :content, :statue)');
         $addComs->execute(array(
-            'post_id' => $id,
+            'post_id' => $postId,
+            'answer_comment_id' => $answerPostId,
             'author' => $author,
-            'comments' => $comments,
+            'content' => $content,
             'statue' => parent::COM_NEW,
         ));
         return $addComs;
     }
 
-    public function reportCom($table, $id, $report)
+    public function reportCom( $id, $report)
     {
-        $reportUpdate = $this->pdo->prepare('UPDATE ' . $table . ' SET reported = :reported WHERE id = :id');
+        $reportUpdate = $this->pdo->prepare('UPDATE comment SET reported = :reported WHERE id = :id');
         $reportUpdate = $reportUpdate->execute(array(
             'reported' => $report,
             'id' => $id
@@ -54,9 +55,9 @@ class CommentsManager extends Manager
         return $dataComs;
     }
 
-    public function getComment($tableCom, $tablePost, $id)
+    public function getComment($id)
     {
-        $getCom = $this->pdo->prepare('SELECT tC.id, tP.title, tC.author, tC.comments, tC.date, tC.post_id, tC.statue, tC.reported FROM ' . $tableCom . ' tC LEFT JOIN ' . $tablePost . ' tP ON tC.post_id = tP.id WHERE tC.id = :id GROUP BY tC.id');
+        $getCom = $this->pdo->prepare('SELECT tC.id, tP.title, tC.author, tC.content, tC.date, tC.post_id, tC.statue, tC.reported FROM comment tC LEFT JOIN post tP ON tC.post_id = tP.id WHERE tC.id = :id GROUP BY tC.id');
         $getCom->execute(array(
             'id' => $id
         ));
@@ -64,9 +65,9 @@ class CommentsManager extends Manager
         return $dataCom;
     }
 
-    public function updateStatueComment($tableCom, $id, $statue)
+    public function updateStatueComment($id, $statue)
     {
-        $updateStatueCom = $this->pdo->prepare('UPDATE ' . $tableCom . ' SET statue = :statue, reported = :reported WHERE id = :id ');
+        $updateStatueCom = $this->pdo->prepare('UPDATE comment SET statue = :statue, reported = :reported WHERE id = :id ');
         $updateStatueCom = $updateStatueCom->execute(array(
             'id' => $id,
             'reported' => 0,

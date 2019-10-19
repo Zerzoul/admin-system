@@ -13,40 +13,10 @@ class Page
 
     public function __construct($call, $app)
     {
-        $this->sanitizeParams($call);
         $this->app = $app;
         $this->_function = $call['function'];
-    }
-
-    public function sanitizeParams($call)
-    {
-        $id = $this->checkId($call['params']['id']);
-        $path = $this->checkThePath($call['path'][0]);
-
-        if ($id === false || $path === false) {
-            throw new \Exception('The params of the are not correct');
-        }
         $this->_id = $call['params']['id'];
         $this->_path = $call['path'][0];
-    }
-
-    public function checkId($id)
-    {
-        if (!is_null($id)) {
-            if (is_int($id)) {
-                return true;
-            }
-            return false;
-        }
-        return null;
-    }
-
-    public function checkThePath($path)
-    {
-        if (isset($path) && is_string($path)) {
-            return true;
-        }
-        return false;
     }
 
     public function build($direction)
@@ -64,8 +34,6 @@ class Page
                 $method = $function[$i]['method'];
                 $getTheController->$method();
             }
-
         }
-
     }
 }
