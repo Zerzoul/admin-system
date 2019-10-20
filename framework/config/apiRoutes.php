@@ -10,7 +10,7 @@ return array('GET' => [
     'POST' => [
         'nouveauCom' => ['path' => '/newcom',
             ['controller' => 'comments', 'method' => 'addCom']],
-        'add-com' => ['path' => '/addCom',
-            ['controller' => 'comments', 'method' => 'report']],
+        'registration' => ['path' => '/registration',
+            ['controller' => 'user', 'method' => 'registration']],
     ]
 );

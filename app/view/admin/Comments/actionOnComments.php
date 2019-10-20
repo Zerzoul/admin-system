@@ -1,9 +1,6 @@
 <div class="p-3 m-0">
     <div class="row justify-content-between">
         <div class="col-4">
-            <p class="font-weight-bold">Type : <?= ucfirst($typeSelected) ?></p>
-        </div>
-        <div class="col-4 text-right">
             <p class="font-weight-bold p-0 m-0">
                 Date de création
             </p>
@@ -20,7 +17,7 @@
         </div>
         <div>
             <p>
-                <?= $actionCom->comments ?>
+                <?= $actionCom->content ?>
             </p>
         </div>
         <div class="row justify-content-between mt-5 mx-1">

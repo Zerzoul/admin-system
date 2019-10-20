@@ -50,7 +50,7 @@ class CommentsManager extends Manager
     // ADMIN
     public function getAllComments()
     {
-        $getComs = $this->pdo->query('SELECT tC.id, tP.title, tC.author, tC.content, tC.date, tC.post_id, tC.statue, tC.reported FROM comment tC LEFT JOIN post tP ON tC.post_id = tP.id GROUP BY tC.id ');
+        $getComs = $this->pdo->query('SELECT tC.id, tC.post_id, tC.answer_comment_id, tP.title, tC.author, tC.content, tC.date, tC.statue, tC.reported FROM comment tC LEFT JOIN post tP ON tC.post_id = tP.id GROUP BY tC.date ');
         $dataComs = $getComs->fetchAll(\PDO::FETCH_OBJ);
         return $dataComs;
     }
@@ -78,7 +78,6 @@ class CommentsManager extends Manager
 
     public function updateAuthorComment($oldName, $newName)
     {
-        var_dump($oldName, $newName);
         $updateAuthorComment = $this->pdo->prepare('UPDATE newscomments, episodescomments SET newscomments.author = :newsAuthor, episodescomments.author = :newsAuthor WHERE newscomments.author = :oldAuthor  OR episodescomments.author=:oldAuthor ');
         $updateAuthorComment = $updateAuthorComment->execute(array(
             'newsAuthor' => $newName,

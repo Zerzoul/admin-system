@@ -52,17 +52,17 @@ class BilletController extends \framework\Controller
         return $news->getAllComments();
     }
 
-    public function displayComment($tableCom, $tablePost, $id)
+    public function displayComment($id)
     {
         $this->isIdNull = false;
         $com = $this->app->getManager('comments');
-        return $com->getComment($tableCom, $tablePost, $id);
+        return $com->getComment($id);
     }
 
-    public function updateStatueComment($tableCom, $id, $statue)
+    public function updateStatueComment($id, $statue)
     {
         $com = $this->app->getManager('comments');
-        return $com->updateStatueComment($tableCom, $id, $statue);
+        return $com->updateStatueComment($id, $statue);
     }
 
 

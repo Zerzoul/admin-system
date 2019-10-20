@@ -35,8 +35,7 @@ class CommentsController extends BilletController
         if (isset($action)) {
             $action === 'valider' ? $actionOnCom = 4 : $actionOnCom = 5;
         }
-        $tableCom = $this->selectTableComments($this->type);
-        $updateStatueCom = $this->updateStatueComment($tableCom, $this->id, $actionOnCom);
+        $updateStatueCom = $this->updateStatueComment($this->id, $actionOnCom);
 
         if (!$updateStatueCom) {
             throw new \Exception('invalid statue action');
