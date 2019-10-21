@@ -12,5 +12,7 @@ return array('GET' => [
             ['controller' => 'comments', 'method' => 'addCom']],
         'registration' => ['path' => '/registration',
             ['controller' => 'user', 'method' => 'registration']],
+        'connection' => ['path' => '/authentification',
+            ['controller' => 'authentification', 'method' => 'access']],
     ]
 );

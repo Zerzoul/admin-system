@@ -9,7 +9,7 @@ class Config
 
     public function __construct($config)
     {
-        $this->_settings = require dirname(__DIR__) . '\config' . $config . '.php';
+        $this->_settings = require dirname(__DIR__) . '/config/' . $config . '.php';
     }
 
 

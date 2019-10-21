@@ -6,6 +6,8 @@
 
 namespace controllers\api;
 use framework\Controller;
+use mysql_xdevapi\Exception;
+
 class UserController extends Controller
 {
     // user data
@@ -16,23 +18,54 @@ class UserController extends Controller
     public function __construct($app, $form, $params)
     {
         parent::__construct($app, $form, $params);
-
-        // store all the information we need about the comment
         $data = json_decode(file_get_contents("php://input"));
+
         $this->pseudo = $data->pseudo;
         $this->email = $data->email;
         $this->password = $data->password;
     }
     //Add the com if the validation return true
     public function registration(){
-        $validation = $this->commentsValidation();
-        if(!$validation){
-            return false;
+        $validaion = $this->checkValidation();
+        if($validaion === true){
+            $passHash = password_hash($this->password, PASSWORD_DEFAULT);
+            $userManager = $this->app->getManager('users');
+            $addUser = $userManager->addUser($this->pseudo, $passHash, $this->email);
         }
-        $addCom = $this->app->getManager('Comments');
-        $response = $addCom->addComs($this->postId, $this->answerPostId, $this->author, $this->content);
-        if($response){
+        return $validaion;
+    }
+    public function checkValidation(){
+        try{
+            $this->isPseudoExist();
+            $this->isMailExist();
+
             return true;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function isPseudoExist(){
+        $userManager = $this->app->getManager('users');
+        $users = $userManager->getUsers();
+
+        foreach ($users as $user){
+            if(strtolower($user->pseudo) === strtolower($this->pseudo)){
+                throw new \Exception('Se pseudo exist déja');
+            } else {
+                return true;
+            }
+        }
+    }
+    public function isMailExist(){
+        $userManager = $this->app->getManager('users');
+        $users = $userManager->getUsers();
+
+        foreach ($users as $user){
+            if($user->email === $this->email){
+                throw new \Exception('Cette adresse mail existe déja');
+            } else {
+                return true;
+            }
         }
     }
 }

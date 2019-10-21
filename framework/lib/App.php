@@ -111,7 +111,7 @@ class App
             throw new \Exception('No data to get');
         }
         $this->path = $call['path'];
-        return new api($call, self::getInstance());
+        return new Api($call, self::getInstance());
 
     }
 

@@ -24,7 +24,7 @@
                 echo $date->format('d/m/Y à H:i'); ?></td>
             <td><?= $com->author ?></td>
             <td><?= $com->title ?></td>
-            <td>
+            <td class="row">
                 <form action="<?= $path ?>-<?= $com->post_id ?>" method="get">
                     <button type="submit" class="btn btn-primary " name="idCom" value="<?= $com->id ?>"
                         <?php if (isset($actionCom->id)) {
@@ -33,7 +33,6 @@
                     >Voir
                     </button>
                 </form>
-
             </td>
         </tr>
         </tbody>
