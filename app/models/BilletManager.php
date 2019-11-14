@@ -1,14 +1,20 @@
 <?php
-
+/**
+ * Model for new post
+ */
 namespace models;
-
 
 class BilletManager extends \framework\Manager
 {
     //FRONT
+    /**
+     * Get all post with the statue published not in the trash
+     * @param $order
+     * @return mixed
+     */
     public function getListPost($order)
     {
-        $getPost = $this->pdo->prepare('SELECT id, title, content, date_create FROM post WHERE statue=:statue AND isThrash=:isThrash ORDER BY id ' . $order);
+        $getPost = $this->pdo->prepare('SELECT p.id, p.title, p.content, i.file_id, p.date_create FROM post p LEFT JOIN image_upload i ON p.file_id = i.id WHERE p.statue=:statue AND p.isThrash=:isThrash ORDER BY p.id ' . $order);
         $getPost->execute(array(
             'statue' => 1,
             'isThrash' => 0));
@@ -17,6 +23,12 @@ class BilletManager extends \framework\Manager
     }
 
     //ADMIN
+
+    /**
+     * Get list of billet for the back-office
+     * @param $isThrash
+     * @return mixed
+     */
     public function getListBillet($isThrash)
     {
         $getListBillet = $this->pdo->prepare('SELECT p.id, p.title, p.content, i.file_id, p.date_create, p.date_modif, p.statue FROM post p LEFT JOIN image_upload i ON p.file_id = i.id  WHERE isThrash=:isThrash ');
@@ -26,6 +38,12 @@ class BilletManager extends \framework\Manager
         return $getListBillet;
     }
 
+    /**
+     * Get a count of billet
+     * @param $isThrash
+     * @param $statue
+     * @return mixed
+     */
     public function getCountBillet($isThrash, $statue)
     {
         $getBillets = $this->pdo->prepare('SELECT COUNT(id) AS postCount FROM post WHERE isThrash=:isThrash AND statue=:statue');
@@ -34,6 +52,10 @@ class BilletManager extends \framework\Manager
         return $getBillets;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getTheBilletWithoutTrash($id)
     {
         $getNews = $this->pdo->prepare('SELECT id, title, content, date_create, date_modif, statue, isThrash FROM post WHERE id=:id ');
@@ -44,6 +66,11 @@ class BilletManager extends \framework\Manager
         return $dataNews;
     }
 
+    /**
+     * @param $id
+     * @param $isThrash
+     * @return mixed
+     */
     public function getTheBillet($id, $isThrash)
     {
         $getNews = $this->pdo->prepare('SELECT p.id, p.title, p.content, i.file_id, p.date_create, p.date_modif, p.statue, p.isThrash FROM post p LEFT JOIN image_upload i ON p.file_id = i.id WHERE p.id=:id AND p.isThrash=:isThrash');
@@ -55,6 +82,13 @@ class BilletManager extends \framework\Manager
         return $dataNews;
     }
 
+    /**
+     * @param $title
+     * @param $content
+     * @param $imageId
+     * @param $statue
+     * @return mixed
+     */
     public function addBillet($title, $content, $imageId,$statue)
     {
         $prepareAdding = $this->pdo->prepare('INSERT INTO post (title, content, file_id,statue) VALUES (:title, :content, :file_id,:statue)');
@@ -67,6 +101,15 @@ class BilletManager extends \framework\Manager
         return $addBillet;
     }
 
+    /**
+     * @param $id
+     * @param $title
+     * @param $content
+     * @param $image
+     * @param $statue
+     * @param $date
+     * @return mixed
+     */
     public function updateBillet($id, $title, $content, $image,$statue, $date)
     {
         $prepareUpdate = $this->pdo->prepare('UPDATE post SET title = :title, content = :content, file_id = :file_id,statue = :statue, date_modif = :date_modif WHERE id = :id');
@@ -81,6 +124,10 @@ class BilletManager extends \framework\Manager
         return $updateBillet;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function trashThisBillet($id)
     {
         $trashThisBillet = $this->pdo->prepare('UPDATE post SET isThrash = :isThrash WHERE id = :id');
@@ -91,6 +138,10 @@ class BilletManager extends \framework\Manager
         return $trashThisBillet;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function deleteThisBillet($id)
     {
         $deleteThisBillet = $this->pdo->prepare('DELETE FROM post WHERE id=:id ');
@@ -100,6 +151,10 @@ class BilletManager extends \framework\Manager
         return $deleteThisBillet;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function restoreThisBillet($id)
     {
         $trashThisBillet = $this->pdo->prepare('UPDATE post SET isThrash = :isThrash, statue = :statue WHERE id = :id');

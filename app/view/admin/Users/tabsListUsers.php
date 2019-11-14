@@ -23,9 +23,9 @@
                 <th scope="row"><?= $user->id ?></th>
                 <td><?= $user->pseudo ?></td>
                 <td> <?= $user->email ?></td>
-                <td><?php $date = new DateTime($user->date_sign);
+                <td><?php $date = new DateTime($user->date_register);
                     echo $date->format('d/m/Y'); ?></td>
-                <td><?= $user->userCount ?></td>
+                <td><?= $user->count ?></td>
             </tr>
             </tbody>
             <?php

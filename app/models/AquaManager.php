@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Zerzoul
- * Date: 04/10/2019
- * Time: 21:12
+ * Model for fish fiche management
  */
 
 namespace models;
@@ -11,6 +8,11 @@ namespace models;
 
 class AquaManager extends \framework\Manager
 {
+    /**
+     * add a new category and return the id
+     * @param $category_name
+     * @return mixed
+     */
     public function addCategory($category_name){
         $prepareAdding = $this->pdo->prepare('INSERT INTO category_fish (category_name) VALUES (:category_name)');
         $category = $prepareAdding->execute(array(
@@ -20,6 +22,15 @@ class AquaManager extends \framework\Manager
         $categoryId = $categoryId->fetch();
         return $categoryId['category_id'];
     }
+
+    /**
+     * Add a new fish fiche
+     * @param $fish
+     * @param $heat
+     * @param $categoryId
+     * @param $imageId
+     * @return mixed
+     */
     public function addFish($fish, $heat,$categoryId, $imageId)
     {
         $prepareAdding = $this->pdo->prepare('INSERT INTO aqua_fish (category, latin_name, commun_name, regime, size, heat, PH, GH, vol_mini, individual_mini, detail, price, image) VALUES (:category, :latin_name, :commun_name, :regime, :size, :heat, :PH, :GH, :vol_mini, :individual_mini, :detail, :price, :image)');
@@ -41,6 +52,15 @@ class AquaManager extends \framework\Manager
         return $addFish;
     }
 
+    /**
+     * Update a fish fiche
+     * @param $fish
+     * @param $heat
+     * @param $categoryId
+     * @param $imageId
+     * @param $id
+     * @return mixed
+     */
     public function updateFish($fish, $heat,$categoryId, $imageId, $id)
     {
         $prepareAdding = $this->pdo->prepare('UPDATE aqua_fish SET category = :category, latin_name = :latin_name, commun_name = :commun_name, regime = :regime, size = :size, heat = :heat, PH = :PH, GH = :GH, vol_mini = :vol_mini, individual_mini = :individual_mini, detail = :detail, price = :price, image = :image WHERE id = :id');
@@ -62,6 +82,12 @@ class AquaManager extends \framework\Manager
         ));
         return $updateFish;
     }
+
+    /**
+     * Delete a fish fiche
+     * @param $id
+     * @return mixed
+     */
     public function deleteFish($id){
         $prepareAdding = $this->pdo->prepare('DELETE FROM aqua_fish WHERE id = :id');
         $deleteFish = $prepareAdding->execute(array(
@@ -70,13 +96,23 @@ class AquaManager extends \framework\Manager
         return $deleteFish;
     }
 
+    /**
+     * Get all fish fiche
+     * @return mixed
+     */
     public function getAllFishes(){
-        $getAllFishes = $this->pdo->query('SELECT f.id, c.category_name, f.latin_name, f.commun_name, f.regime, f.size, f.heat, f.PH, f.GH, f.vol_mini, f.individual_mini, f.detail, f.price, i.file_id FROM aqua_fish f INNER JOIN category_fish c ON f.category = c.id  INNER JOIN image_upload i ON f.image = i.id ');
+        $getAllFishes = $this->pdo->query('SELECT f.id, c.category_name, f.latin_name, f.commun_name, f.regime, f.size, f.heat, f.PH, f.GH, f.vol_mini, f.individual_mini, f.detail, f.price, i.file_id FROM aqua_fish f LEFT JOIN category_fish c ON f.category = c.id  LEFT JOIN image_upload i ON f.image = i.id ');
         $getAllFishes = $getAllFishes->fetchAll(\PDO::FETCH_OBJ);
         return $getAllFishes;
     }
+
+    /**
+     * Get juste one fish fiche
+     * @param $id
+     * @return mixed
+     */
     public function getTheFish($id){
-        $getTheFish = $this->pdo->prepare('SELECT f.id, c.category_name, f.latin_name, f.commun_name, f.regime, f.size, f.heat, f.PH, f.GH, f.vol_mini, f.individual_mini, f.detail, f.price, i.file_id FROM aqua_fish f INNER JOIN category_fish c ON f.category = c.id  INNER JOIN image_upload i ON f.image = i.id WHERE f.id = :id ');
+        $getTheFish = $this->pdo->prepare('SELECT f.id, c.category_name, f.latin_name, f.commun_name, f.regime, f.size, f.heat, f.PH, f.GH, f.vol_mini, f.individual_mini, f.detail, f.price, i.file_id FROM aqua_fish f LEFT JOIN category_fish c ON f.category = c.id  LEFT JOIN image_upload i ON f.image = i.id WHERE f.id = :id ');
         $getTheFish->execute(array(
             'id' => $id,
         ));

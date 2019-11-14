@@ -1,16 +1,28 @@
 <?php
+/**
+ * Check data from the $call
+ */
 namespace framework;
-
 
 class Sanitizer
 {
+    /**
+     * @var
+     */
     private $_call;
 
+    /**
+     * Sanitizer constructor.
+     * @param $call
+     */
     public function __construct($call)
     {
         $this->_call = $call;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function sanitizeParams()
     {
         $id = $this->checkId($this->_call['params']['id']);
@@ -21,6 +33,10 @@ class Sanitizer
         }
     }
 
+    /**
+     * @param $id
+     * @return bool|null
+     */
     private function checkId($id)
     {
         if (!is_null($id)) {
@@ -32,6 +48,10 @@ class Sanitizer
         return null;
     }
 
+    /**
+     * @param $path
+     * @return bool
+     */
     private function checkThePath($path)
     {
         if (isset($path) && is_string($path)) {

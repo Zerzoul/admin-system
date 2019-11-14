@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Array for adminManager routes
+ * @return array
+ */
 return array('GET' =>
 
     [

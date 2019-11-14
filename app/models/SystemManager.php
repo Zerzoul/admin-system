@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Zerzoul
- * Date: 04/10/2019
- * Time: 21:31
+ * Model for back-office event
  */
 
 namespace models;
@@ -11,6 +8,10 @@ namespace models;
 
 class SystemManager extends \framework\Manager
 {
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function addImage($name){
         $prepareAdding = $this->pdo->prepare('INSERT INTO image_upload (file_id)  VALUES (:file_id)');
         $prepareAdding->execute(array(

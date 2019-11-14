@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Zerzoul
- * Date: 16/10/2019
- * Time: 09:51
+ * Controle the upload from admin
  */
 
 namespace framework;
@@ -11,18 +8,38 @@ namespace framework;
 
 class upload
 {
+    /**
+     * @var
+     */
     protected $fileName;
+    /**
+     * @var
+     */
     protected $fileTmp;
+    /**
+     * @var
+     */
     protected $fileError;
+    /**
+     * @var
+     */
     protected $fileSize;
 
+    /**
+     * upload constructor.
+     * @param $file
+     */
     public function __construct($file){
-        var_dump($file);
         $this->fileName = $file['name'];
         $this->fileTmp = $file['tmp_name'];
         $this->fileError = $file['error'];
         $this->fileSize = $file['size'];
     }
+
+    /**
+     * Control all the information from $file and stock the new id into DB, the img goes into a folder in api
+     * @return bool
+     */
     public function uploadImage(){
 
         $fileExt = explode('.', $this->fileName);

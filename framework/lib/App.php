@@ -4,17 +4,44 @@ namespace framework;
 
 class App
 {
-
+    /**
+     *
+     * @var
+     */
     private static $_instance;
+    /**
+     * @var null
+     */
     private static $_instanceController = null;
+    /**
+     * @var null
+     */
     private static $_instancePage = null;
+    /**
+     * @var null
+     */
     private static $_router = null;
+    /**
+     * @var
+     */
     protected $path;
+    /**
+     * @var
+     */
     private $_db_instance;
+    /**
+     * @var
+     */
     private $_routes;
+    /**
+     * @var
+     */
     private $_formBuilder;
 
-
+    /**
+     * App is a singleton stock and return is unique instance
+     * @return App
+     */
     public static function getInstance()
     {
         if (is_null(self::$_instance)) {
@@ -23,6 +50,11 @@ class App
         return self::$_instance;
     }
 
+    /**
+     * Called by the controller to fetch data from DB
+     * @param $name
+     * @return mixed
+     */
     public function getManager($name)
     {
         $class = ucfirst($name) . 'Manager';
@@ -33,9 +65,13 @@ class App
         return new $class_name($this->getDb());
     }
 
+    /**
+     * Create the connection to data Base with the dsn array
+     * @return \PDO
+     */
     public function getDb()
     {
-        $config = $this->initConfig('\dsn');
+        $config = $this->initConfig('dsn');
         if (is_null($this->_db_instance)) {
             $db = new PDOManager($config->get('name'), $config->get('host'), $config->get('pass'), $config->get('user'));
             $this->_db_instance = $db->MYSQLConnect();
@@ -43,11 +79,23 @@ class App
         return $this->_db_instance;
     }
 
+    /**
+     * return instance of config class by passing asked array
+     * @param $config
+     * @return Config
+     */
     public function initConfig($config)
     {
         return new Config($config);
     }
 
+    /**
+     * Is a factory for instanciate new controller classes
+     * @param $name
+     * @param $direction
+     * @param $params
+     * @return null
+     */
     public function getController($name, $direction, $params)
     {
         $class = ucfirst($name) . 'Controller';
@@ -62,6 +110,9 @@ class App
         return self::$_instanceController;
     }
 
+    /**
+     * Controle the authentification when it's called
+     */
     public function authAdmin()
     {
         if ($_GET['action']) {
@@ -72,6 +123,10 @@ class App
         }
     }
 
+    /**
+     * Create a new instance of the form generator admin side
+     * @return Form
+     */
     public function initForm()
     {
         if (is_null($this->_formBuilder)) {
@@ -81,7 +136,12 @@ class App
         return $this->_formBuilder;
     }
 
-
+    /**
+     * Instanciate a new route class
+     * @param $url
+     * @param $routes
+     * @return Router|null
+     */
     public function initRouter($url, $routes)
     {
         $routes = $this->initConfig($routes);
@@ -91,9 +151,22 @@ class App
         }
         return self::$_router;
     }
+
+    /**
+     * Return a new instance of the upload class
+     * @param $file
+     * @return Upload
+     */
     public function upload($file){
         return new Upload($file);
     }
+
+    /**
+     * create and return a new instance of page class
+     * @param $call
+     * @return Page|null
+     * @throws \Exception
+     */
     public function getPage($call)
     {
         if (!isset($call)) {
@@ -105,6 +178,13 @@ class App
         }
         return self::$_instancePage;
     }
+
+    /**
+     * create and return a new instance of api class
+     * @param $call
+     * @return Api
+     * @throws \Exception
+     */
     public function api($call)
     {
         if (!isset($call)) {

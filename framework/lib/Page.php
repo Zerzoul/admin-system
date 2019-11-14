@@ -5,12 +5,29 @@ namespace framework;
 
 class Page
 {
-
+    /**
+     * instance of app
+     * @var
+     */
     protected $app;
+    /**
+     * @var
+     */
     private $_function;
+    /**
+     * @var null
+     */
     private $_id = null;
+    /**
+     * @var null
+     */
     private $_path = null;
 
+    /**
+     * Page constructor.
+     * @param $call
+     * @param $app
+     */
     public function __construct($call, $app)
     {
         $this->app = $app;
@@ -19,6 +36,10 @@ class Page
         $this->_path = $call['path'][0];
     }
 
+    /**
+     * Fetch getController for create a new controller
+     * @param $direction
+     */
     public function build($direction)
     {
         $function = $this->_function;

@@ -1,10 +1,16 @@
 <?php
-
+/**
+ *  Array for the API routes
+ * @return array
+ */
 return array('GET' => [
         'posts' => ['path' => '/posts',
         ['controller' => 'posts', 'method' => 'listPosts']],
         'fishList' => ['path' => '/fishlist',
-            ['controller' => 'fishList', 'method' => 'getFishList']],],
+            ['controller' => 'fishList', 'method' => 'getFishList']],
+        'comments' => ['path' => '/comments',
+            ['controller' => 'comments', 'method' => 'getComments']],
+        ],
 
 
     'POST' => [

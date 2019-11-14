@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Check the routes with the url
+ */
 namespace framework;
 
 
@@ -15,12 +17,20 @@ class Route
     private $_type = null;
     private $_matchType = null;
 
+    /**
+     * Route constructor.
+     * @param $routes
+     */
     public function __construct($routes)
     {
         $this->_path = trim($routes['path'], '/');
         $this->_routes = $routes;
     }
 
+    /**
+     * @param $url
+     * @return bool
+     */
     public function match($url)
     {
         $url = trim($url, '/');
@@ -40,6 +50,9 @@ class Route
         return true;
     }
 
+    /**
+     * @param $urlParse
+     */
     public function splitParams($urlParse)
     {
         foreach ($urlParse as $params) {
@@ -62,6 +75,10 @@ class Route
 
     }
 
+    /**
+     * Return the $call if there is match
+     * @return array
+     */
     public function call()
     {
         return array(

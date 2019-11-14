@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Create form tags
+ */
 namespace framework;
 
 

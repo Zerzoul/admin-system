@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Auto load classes from the lib
+ */
 namespace framework;
 
 class Autoloader

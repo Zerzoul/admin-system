@@ -1,13 +1,27 @@
 <?php
 
+/**
+ * Get the array route config and the url, create a new instance of routes
+ * to get routes match and return the $call
+ */
 namespace framework;
 
 class Router
 {
-
+    /**
+     * @var
+     */
     private $_url;
+    /**
+     * @var array
+     */
     private $_routes = [];
 
+    /**
+     * Router constructor.
+     * @param $url
+     * @param $routes
+     */
     public function __construct($url, $routes)
     {
         $this->_url = $url;
@@ -15,6 +29,11 @@ class Router
 
     }
 
+    /**
+     * if match return true, get the $call
+     * @return array
+     * @throws \Exception
+     */
     public function run()
     {
 

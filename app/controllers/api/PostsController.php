@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Zerzoul
- * Date: 01/10/2019
- * Time: 21:47
+ * return all post data
  */
 namespace controllers\api;
 
@@ -12,7 +9,7 @@ class PostsController extends \framework\Controller
     // return all post data
     public function listPosts(){
         $posts = $this->app->getManager('billet');
-        $posts = $posts->getListPost('ASC');
+        $posts = $posts->getListPost('DESC');
         return $posts;
     }
 

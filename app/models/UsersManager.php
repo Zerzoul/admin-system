@@ -1,23 +1,27 @@
 <?php
 
-
+/**
+ * model user
+ */
 namespace models;
 
 use \framework\Manager;
 
 class UsersManager extends Manager
 {
-//    public function countFromUsers()
-//    {
-//        $getUsers = $this->pdo->query('SELECT SUM(newsCount) AS userCount, t.id, t.pseudo, t.date_sign, t.email FROM
-//                                      (( SELECT COUNT(C.author) AS newsCount, B.id, B.pseudo, B.date_sign, B.email FROM user B LEFT JOIN newscomments C ON (B.pseudo = C.author) GROUP BY B.id)
-//                                        UNION ALL
-//                                        ( SELECT COUNT(E.author) AS episodesCount, D.id, D.pseudo, D.date_sign, D.email FROM user D LEFT JOIN episodescomments E ON (D.pseudo = E.author) GROUP BY D.id)
-//                                      )t GROUP BY t.id');
-//        $users = $getUsers->fetchAll(\PDO::FETCH_OBJ);
-//        return $users;
-//    }
+    /**
+     * @return mixed
+     */
+   public function countFromUsers()
+   {
+       $getUsers = $this->pdo->query(' SELECT COUNT(C.author) AS count, U.id, U.pseudo, U.date_registration, U.email FROM user U LEFT JOIN comment C ON (U.pseudo = C.author) GROUP BY U.id');
+       $users = $getUsers->fetchAll(\PDO::FETCH_OBJ);
+       return $users;
+   }
 
+    /**
+     * @return mixed
+     */
     public function getUsers()
     {
         $getUsers = $this->pdo->query('SELECT id, pseudo, password, date_registration,email FROM user ');
@@ -25,6 +29,10 @@ class UsersManager extends Manager
         return $users;
     }
 
+    /**
+     * @param $email
+     * @return bool
+     */
     public function getUser($email)
     {
         $getUser = $this->pdo->prepare('SELECT id, pseudo, password, date_registration, email FROM user WHERE email = :email ');
@@ -35,6 +43,9 @@ class UsersManager extends Manager
         return isset($user) ? $user : false;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAdminUser()
     {
         $getAdminUsers = $this->pdo->query('SELECT id, user_name, password, statue FROM adminmanager');
@@ -42,6 +53,9 @@ class UsersManager extends Manager
         return $adminUsers;
     }
 
+    /**
+     * @return mixed
+     */
     public function countUsers()
     {
         $getUsers = $this->pdo->query('SELECT COUNT(*) AS counts FROM user ');
@@ -49,16 +63,12 @@ class UsersManager extends Manager
         return $usersCount;
     }
 
-//    public function addAnonymeUsers($pseudo, $email)
-//    {
-//        $addUser = $this->pdo->prepare('INSERT INTO user(pseudo, email) VALUES (:pseudo, :email)');
-//        $addUser->execute(array(
-//            'pseudo' => $pseudo,
-//            'email' => $email,
-//        ));
-//        return $addUser;
-//    }
-
+    /**
+     * @param $pseudo
+     * @param $passHash
+     * @param $email
+     * @return mixed
+     */
     public function addUser($pseudo, $passHash, $email)
     {
         $addUser = $this->pdo->prepare('INSERT INTO user(pseudo, email, password) VALUES (:pseudo, :email, :password)');
@@ -70,6 +80,12 @@ class UsersManager extends Manager
         return $addUser;
     }
 
+    /**
+     * @param $pseudo
+     * @param $passHash
+     * @param $email
+     * @return mixed
+     */
     public function updateUsers($pseudo, $passHash, $email)
     {
         $updateUser = $this->pdo->prepare('UPDATE user SET pseudo = :pseudo, password = :password WHERE email = :email');

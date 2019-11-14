@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Zerzoul
- * Date: 01/10/2019
- * Time: 22:04
+ * Class get, and format data for the REST API
  */
 
 namespace framework;
@@ -11,12 +8,29 @@ namespace framework;
 
 class Api
 {
+    /**
+     * Instance of app
+     * @var
+     */
     protected $app;
+    /**
+     * Stock function who need to be called
+     * @var mixed
+     */
     private $_function;
     private $_id = null;
     private $_path = null;
+    /**
+     * Object returning data.
+     * @var null|object
+     */
     protected $data = null;
 
+    /**
+     * Api constructor.
+     * @param $call
+     * @param $app
+     */
     public function __construct($call, $app)
     {
         $this->app = $app;
@@ -26,6 +40,10 @@ class Api
 
         $this->getHeader();
     }
+
+    /**
+     * exe the right method in function of is request method
+     */
     protected function getHeader(){
         $request = $_SERVER['REQUEST_METHOD'];
         if ($request === 'GET'){
@@ -35,24 +53,40 @@ class Api
             $this->create();
         }
     }
+
+    /**
+     * POST resquest
+     */
     protected function create(){
         header('Access-Control-Allow-Origin: *');
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Methods: POST');
-        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Request-With');
+        header('Content-Type: application/json, text/plain, */*');
+        header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type');
 
         $this->fetchController();
     }
+
+    /**
+     * GET resquest
+     */
     protected function read(){
         header('Access-Control-Allow-Origin: *');
         header('Content-type: application/json');
 
         $this->fetchController();
     }
+    /**
+     * Format and stock JSON into $data
+     * @return object
+     */
     public function getData(){
         $data = json_encode($this->data);
         return $data;
     }
+
+    /**
+     * fetch the controller and the method define into $call
+     * stock into the data the return of the method
+     */
     protected function fetchController()
     {
         $function = $this->_function;

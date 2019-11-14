@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Zerzoul
- * Date: 20/10/2019
- * Time: 18:24
+ * Controller for the authentifacation API
  */
 
 namespace controllers\api;
@@ -13,11 +10,29 @@ use framework\Controller;
 
 class AuthentificationController extends Controller
 {
+    /**
+     * @var string
+     */
     protected $email;
+    /**
+     * @var string
+     */
     protected $password;
+    /**
+     * @var string
+     */
     protected $user;
-    protected $errorMessage = 'Mot de passe ou identifiant inconnue';
+    /**
+     * @var string
+     */
+    protected $errorMessage = 'Le mot de passe et l\'adresse mail ne correspondent pas.';
 
+    /**
+     * AuthentificationController constructor.
+     * @param $app
+     * @param $form
+     * @param $params
+     */
     public function __construct($app, $form, $params)
     {
         parent::__construct($app, $form, $params);
@@ -26,16 +41,27 @@ class AuthentificationController extends Controller
         $this->email = $data->email;
         $this->password = $data->password;
     }
+
+    /**
+     * method called from apiRoutes, return the name of the user from DB or error
+     * @return object
+     */
     public function access(){
         try{
             $authValidation = $this->authValidation();
             if($authValidation){
-                return $this->user->pseudo;
+                return (object)array("pseudo" => $this->user->pseudo);
             }
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return (object)array("error" => $e->getMessage());
         }
     }
+
+    /**
+     * Called by acces controle information or return error message
+     * @return bool
+     * @throws \Exception
+     */
     public function authValidation(){
         $userManager = $this->app->getManager('users');
         $this->user = $userManager->getUser($this->email);
